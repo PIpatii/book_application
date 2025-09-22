@@ -1,7 +1,7 @@
 package mate.academy.application.repository.impl;
 
 import java.util.List;
-import mate.academy.application.exception.DataSourceException;
+import mate.academy.application.exception.DataProcessingException;
 import mate.academy.application.model.Book;
 import mate.academy.application.repository.BookRepository;
 import org.hibernate.Session;
@@ -34,7 +34,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataSourceException("Cannot save book: " + book, e);
+            throw new DataProcessingException("Cannot save book: " + book, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -47,7 +47,7 @@ public class BookRepositoryImpl implements BookRepository {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("SELECT b from Book b", Book.class).list();
         } catch (Exception e) {
-            throw new DataSourceException("Cannot find all books", e);
+            throw new DataProcessingException("Cannot find all books", e);
         }
     }
 }
