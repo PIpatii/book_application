@@ -1,10 +1,11 @@
 package mate.academy.application.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import mate.academy.application.dto.BookDto;
 import mate.academy.application.dto.CreateBookRequestDto;
-import mate.academy.application.exception.EntityNotFoundException;
 import mate.academy.application.mapper.BookMapper;
 import mate.academy.application.model.Book;
 import mate.academy.application.repository.BookRepository;
@@ -39,17 +40,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto updateById(CreateBookRequestDto updateBookDto, long id) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cannot find book by id: " + id));
-        book.setAuthor(updateBookDto.getAuthor());
-        book.setTitle(updateBookDto.getTitle());
-        book.setPrice(updateBookDto.getPrice());
-        book.setIsbn(updateBookDto.getIsbn());
-        book.setDescription(updateBookDto.getDescription());
-        book.setCoverImage(updateBookDto.getCoverImage());
+        Optional<Book> book = bookRepository.findById(id);
 
-        return bookMapper.toDto(bookRepository.save(book));
-
+        if (book.isPresent()) {
+            Book bookEntity = new Book();
+            bookEntity.setId(book.get().getId());
+            bookEntity = bookMapper.toModel(updateBookDto);
+            return bookMapper.toDto(bookRepository.save(bookEntity));
+        } else {
+            throw new EntityNotFoundException("Cannot find book by id: " + id);
+        }
     }
 
     @Override
