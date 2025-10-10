@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
@@ -37,12 +36,12 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new EntityNotFoundException("Cannot find book by id: " + id)));
     }
 
-    //b
     @Override
     public BookDto updateById(CreateBookRequestDto updateBookDto, long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cannot find book by id: " + id));
-        return bookMapper.toDto(bookRepository.save(bookMapper.updateDto(book, updateBookDto)));
+        bookMapper.updateBookFromDto(updateBookDto, book);
+        return bookMapper.toDto(bookRepository.save(book));
     }
 
     @Override
