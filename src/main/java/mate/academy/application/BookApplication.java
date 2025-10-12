@@ -1,13 +1,12 @@
-package mate.academy.book_aplication;
+package mate.academy.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BookAplicationApplication {
-
+public class BookApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BookAplicationApplication.class, args);
+        SpringApplication.run(BookApplication.class, args);
     }
 
 }
