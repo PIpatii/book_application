@@ -3,6 +3,7 @@ package mate.academy.application.controller;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.application.dto.BookDto;
+import mate.academy.application.dto.BookSearchParametersDto;
 import mate.academy.application.dto.CreateBookRequestDto;
 import mate.academy.application.service.BookService;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,11 @@ public class BookController {
     @GetMapping
     public List<BookDto> getAll() {
         return bookService.findAll();
+    }
+
+    @GetMapping("/search")
+    public List<BookDto> search(BookSearchParametersDto params) {
+        return bookService.search(params);
     }
 
     @GetMapping("/{id}")

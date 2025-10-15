@@ -2,12 +2,15 @@ package mate.academy.application.service;
 
 import java.util.List;
 import mate.academy.application.dto.BookDto;
+import mate.academy.application.dto.BookSearchParametersDto;
 import mate.academy.application.dto.CreateBookRequestDto;
 
 public interface BookService {
     BookDto save(CreateBookRequestDto requestDto);
 
     List<BookDto> findAll();
+
+    List<BookDto> search(BookSearchParametersDto params);
 
     BookDto getById(long id);
 
