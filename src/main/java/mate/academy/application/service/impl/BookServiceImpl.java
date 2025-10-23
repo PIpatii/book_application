@@ -8,9 +8,11 @@ import mate.academy.application.dto.BookSearchParametersDto;
 import mate.academy.application.dto.CreateBookRequestDto;
 import mate.academy.application.mapper.BookMapper;
 import mate.academy.application.model.Book;
-import mate.academy.application.repository.BookRepository;
+import mate.academy.application.repository.book.BookRepository;
 import mate.academy.application.repository.book.BookSpecificationBuilder;
 import mate.academy.application.service.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -28,10 +30,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> findAll() {
-        return bookRepository.findAll().stream()
-                .map(bookMapper::toDto)
-                .toList();
+    public Page<BookDto> findAll(Pageable pageable) {
+        Page<Book> pages = bookRepository.findAll(pageable);
+        return pages.map(bookMapper::toDto);
     }
 
     @Override

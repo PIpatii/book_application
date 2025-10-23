@@ -35,6 +35,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
                 .map(this::getErrorMessage)
                 .toList();
         body.put("errors", errors);
+
         return new ResponseEntity<>(body, headers, HttpStatus.BAD_REQUEST);
     }
 
@@ -43,6 +44,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("error", ex.getMessage());
+
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
