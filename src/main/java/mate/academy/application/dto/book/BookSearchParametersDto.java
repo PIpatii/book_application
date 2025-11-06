@@ -1,4 +1,4 @@
-package mate.academy.application.dto;
+package mate.academy.application.dto.book;
 
 public record BookSearchParametersDto(String[] title, String[] author, String[] isbn) {
 }
