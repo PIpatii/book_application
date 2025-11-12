@@ -12,8 +12,10 @@ import mate.academy.application.repository.role.RoleRepository;
 import mate.academy.application.repository.user.UserRepository;
 import mate.academy.application.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
             throw new RegistrationException("Email already exists");
         }
         User user = userMapper.toEntity(userRequestDto);
-        Role defaultRole = roleRepository.getDefaultRole();
+        Role defaultRole = roleRepository.findByName(Role.RoleName.USER);
         user.setRoles(Set.of(defaultRole));
         userRepository.save(user);
 
