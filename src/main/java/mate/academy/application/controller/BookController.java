@@ -12,6 +12,7 @@ import mate.academy.application.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,24 +31,28 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "get all books", description = "get a list of all books")
     public Page<BookDto> getAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
     @GetMapping("/search")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "search", description = "get a list of all books using some parameters")
     public List<BookDto> search(BookSearchParametersDto params) {
         return bookService.search(params);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "get a book by id", description = "get a book using id")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.getById(id);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "create a new book", description = "create a new book")
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
@@ -55,6 +60,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "update a book", description = "update a book using id")
     public BookDto updateBookById(@RequestBody @Valid CreateBookRequestDto bookDto,
@@ -63,6 +69,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "delete a book", description = "delete a book using id")
     public void deleteBookById(@PathVariable Long id) {
