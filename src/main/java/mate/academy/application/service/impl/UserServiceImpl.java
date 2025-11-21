@@ -11,6 +11,7 @@ import mate.academy.application.model.User;
 import mate.academy.application.repository.role.RoleRepository;
 import mate.academy.application.repository.user.UserRepository;
 import mate.academy.application.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDto registerUser(UserRequestDto userRequestDto) {
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService {
             throw new RegistrationException("Email already exists");
         }
         User user = userMapper.toEntity(userRequestDto);
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         Role defaultRole = roleRepository.findByName(Role.RoleName.USER);
         user.setRoles(Set.of(defaultRole));
         userRepository.save(user);
