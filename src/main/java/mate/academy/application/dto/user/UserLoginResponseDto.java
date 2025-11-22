@@ -1,14 +1,12 @@
 package mate.academy.application.dto.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
 @Getter
 @Setter
 public class UserLoginResponseDto {
     private String token;
-
-    public UserLoginResponseDto(String token) {
-        this.token = token;
-    }
 }
