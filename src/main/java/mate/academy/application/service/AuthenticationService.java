@@ -1,4 +1,4 @@
-package mate.academy.application.service.impl;
+package mate.academy.application.service;
 
 import lombok.RequiredArgsConstructor;
 import mate.academy.application.dto.user.UserLoginRequestDto;
