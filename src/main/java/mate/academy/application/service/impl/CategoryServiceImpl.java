@@ -1,7 +1,6 @@
 package mate.academy.application.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.application.dto.category.CategoryDto;
 import mate.academy.application.dto.category.CreateCategoryRequestDto;
@@ -9,6 +8,8 @@ import mate.academy.application.mapper.CategoryMapper;
 import mate.academy.application.model.Category;
 import mate.academy.application.repository.category.CategoryRepository;
 import mate.academy.application.service.CategoryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,10 +19,9 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public List<CategoryDto> findAll() {
-        return categoryRepository.findAll().stream()
-                .map(categoryMapper::toDto)
-                .toList();
+    public Page<CategoryDto> findAll(Pageable pageable) {
+        Page<Category> pages = categoryRepository.findAll(pageable);
+        return pages.map(categoryMapper::toDto);
     }
 
     @Override
