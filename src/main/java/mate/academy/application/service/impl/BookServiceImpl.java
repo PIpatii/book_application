@@ -2,8 +2,11 @@ package mate.academy.application.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import mate.academy.application.dto.book.BookDto;
+import mate.academy.application.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.application.dto.book.BookSearchParametersDto;
 import mate.academy.application.dto.book.CreateBookRequestDto;
 import mate.academy.application.mapper.BookMapper;
@@ -25,7 +28,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
-        Book book = bookMapper.toModel(requestDto);
+        Book book = bookMapper.toEntity(requestDto);
         return bookMapper.toDto(bookRepository.save(book));
     }
 
@@ -47,6 +50,13 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new EntityNotFoundException("Cannot find book by id: " + id));
         bookMapper.updateBookFromDto(updateBookDto, book);
         return bookMapper.toDto(bookRepository.save(book));
+    }
+
+    @Override
+    public Set<BookDtoWithoutCategoryIds> getBooksByCategoryId(long id) {
+        return bookRepository.findAllByCategoryId(id).stream()
+                .map(bookMapper::toDtoWithoutCategory)
+                .collect(Collectors.toSet());
     }
 
     @Override
