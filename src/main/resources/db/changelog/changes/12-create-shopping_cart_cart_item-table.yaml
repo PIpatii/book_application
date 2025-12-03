@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-books_categories-table
+      id: create-shopping_cart_cart_item-table
       author: Petro
       changes:
         - createTable:
-            tableName: books_categories
+            tableName: shopping_carts_cart_items
             columns:
               - column:
                   name: id
@@ -14,26 +14,26 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: book_id
+                  name: shopping_cart_id
                   type: BIGINT
                   constraints:
                     nullable: false
               - column:
-                  name: categories_id
+                  name: cart_item_id
                   type: BIGINT
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseTableName: books_categories
-            baseColumnNames: book_id
-            referencedTableName: books
+            baseTableName: shopping_carts_cart_items
+            baseColumnNames: shopping_cart_id
+            referencedTableName: shopping_carts
             referencedColumnNames: id
-            constraintName: fk_books_categories_book
+            constraintName: fk_shopping_carts_cart_items_shopping_cart
             onDelete: CASCADE
         - addForeignKeyConstraint:
-            baseTableName: books_categories
-            baseColumnNames: categories_id
-            referencedTableName: categories
+            baseTableName: shopping_carts_cart_items
+            baseColumnNames: cart_item_id
+            referencedTableName: cart_items
             referencedColumnNames: id
-            constraintName: fk_books_categories_category
+            constraintName: fk_shopping_carts_cart_items_cart_item
             onDelete: CASCADE

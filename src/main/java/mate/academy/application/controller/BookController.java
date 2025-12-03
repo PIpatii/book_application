@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
     private final BookService bookService;
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("permitAll()")
     @GetMapping
     @Operation(summary = "get all books", description = "get a list of all books")
     public Page<BookDto> getAll(Pageable pageable) {
