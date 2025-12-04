@@ -14,10 +14,8 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: user_id
-                  type: BIGINT
+                  name: is_deleted
+                  type: boolean
+                  defaultValueBoolean: false
                   constraints:
                     nullable: false
-              - column:
-                  name: cart_items_id
-                  type: BIGINT

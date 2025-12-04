@@ -3,7 +3,6 @@ package mate.academy.application.mapper;
 import java.util.Set;
 import mate.academy.application.config.MapperConfig;
 import mate.academy.application.dto.cart.item.AddCartItemRequestDto;
-import mate.academy.application.dto.cart.item.CartItemDto;
 import mate.academy.application.dto.cart.item.CartItemResponseDto;
 import mate.academy.application.dto.cart.item.UpdateCartItemRequestDto;
 import mate.academy.application.model.CartItem;
@@ -13,8 +12,6 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(config = MapperConfig.class, uses = BookMapper.class)
 public interface CartItemsMapper {
-    CartItem toModel(CartItemDto cartItemDto);
-
     @Mapping(target = "book", source = "bookId", qualifiedByName = "bookFromId")
     @Mapping(target = "shoppingCart", ignore = true)
     CartItem addCartRequestToModel(AddCartItemRequestDto requestDto);
