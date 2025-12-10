@@ -14,8 +14,6 @@ public interface OrderMapper {
     Order toEntity(OrderRequestDto orderRequestDto);
 
     @Mapping(target = "userId", source = "user.id")
-    @Mapping(target = "status", source = "status")
-    @Mapping(target = "total", source = "total")
     OrderResponseDto toDto(Order order);
 
     void updateOrderStatus(StatusUpdateRequestDto statusUpdateRequestDto,
