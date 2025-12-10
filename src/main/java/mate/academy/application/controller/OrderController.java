@@ -9,7 +9,6 @@ import mate.academy.application.dto.order.OrderRequestDto;
 import mate.academy.application.dto.order.OrderResponseDto;
 import mate.academy.application.dto.order.StatusUpdateRequestDto;
 import mate.academy.application.dto.order.item.OrderItemResponseDto;
-import mate.academy.application.service.OrderItemService;
 import mate.academy.application.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,27 +27,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/orders")
 public class OrderController {
     private final OrderService orderService;
-    private final OrderItemService orderItemService;
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping
     @Operation(summary = "Create an order", description = "Creating an order")
     @ResponseStatus(HttpStatus.CREATED)
-    OrderResponseDto createOrder(@RequestBody @Valid OrderRequestDto orderRequestDto) {
+    public OrderResponseDto createOrder(@RequestBody @Valid OrderRequestDto orderRequestDto) {
         return orderService.createOrder(orderRequestDto);
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping
     @Operation(summary = "Get Orders", description = "Get all orders current user")
-    List<OrderResponseDto> getOrders() {
+    public List<OrderResponseDto> getOrders() {
         return orderService.getOrders();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("{orderId}")
     @Operation(summary = "Update a status", description = "Updating a status")
-    OrderResponseDto updateStatus(@RequestBody @Valid StatusUpdateRequestDto statusUpdateRequestDto,
+    public OrderResponseDto updateStatus(
+            @RequestBody @Valid StatusUpdateRequestDto statusUpdateRequestDto,
                                   @PathVariable Long orderId) {
         return orderService.updateStatus(statusUpdateRequestDto, orderId);
     }
@@ -56,16 +55,16 @@ public class OrderController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping("{orderId}/items")
     @Operation(summary = "Get all order items", description = "Get all order items by order id")
-    List<OrderItemResponseDto> getAllOrderItemsByOrder(@PathVariable Long orderId) {
-        return orderItemService.getAllByOrderId(orderId);
+    public List<OrderItemResponseDto> getAllOrderItemsByOrder(@PathVariable Long orderId) {
+        return orderService.getAllByOrderId(orderId);
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("{orderId}/items/{orderItemId}")
     @Operation(summary = "Get an order item by id", description = "Get order item by id")
-    OrderItemResponseDto getOrderItemById(@PathVariable Long orderId,
+    public OrderItemResponseDto getOrderItemById(@PathVariable Long orderId,
                                           @PathVariable Long orderItemId) {
-        return orderItemService.getOrderItemById(orderId, orderItemId);
+        return orderService.getOrderItemById(orderId, orderItemId);
     }
 
 }

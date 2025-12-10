@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import mate.academy.application.dto.order.OrderRequestDto;
 import mate.academy.application.dto.order.OrderResponseDto;
 import mate.academy.application.dto.order.StatusUpdateRequestDto;
+import mate.academy.application.dto.order.item.OrderItemResponseDto;
 import mate.academy.application.mapper.OrderItemMapper;
 import mate.academy.application.mapper.OrderMapper;
 import mate.academy.application.model.CartItem;
@@ -68,6 +69,27 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.updateOrderStatus(statusUpdateRequestDto, order);
 
         return getResponse(orderRepository.save(order));
+    }
+
+    @Override
+    public OrderItemResponseDto getOrderItemById(Long orderId, Long orderItemId) {
+        Order order = orderRepository.getOrderById(orderId);
+        OrderItem orderItem = order.getOrderItems().stream()
+                .filter(item -> item.getId().equals(orderItemId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Order Item with id "
+                        + orderItemId + " not found"));
+
+        return orderItemMapper.toDto(orderItem);
+    }
+
+    @Override
+    public List<OrderItemResponseDto> getAllByOrderId(Long orderId) {
+        Order order = orderRepository.getOrderById(orderId);
+
+        return order.getOrderItems().stream()
+                .map(orderItemMapper::toDto)
+                .toList();
     }
 
     private OrderResponseDto getResponse(Order order) {
