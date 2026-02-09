@@ -7,10 +7,8 @@ import mate.academy.application.dto.book.CreateBookRequestDto;
 import mate.academy.application.mapper.BookMapper;
 import mate.academy.application.model.Book;
 import mate.academy.application.model.Category;
-import mate.academy.application.repository.SpecificationProvider;
 import mate.academy.application.repository.book.BookRepository;
 import mate.academy.application.repository.book.BookSpecificationBuilder;
-import mate.academy.application.repository.book.BookSpecificationProviderManager;
 import mate.academy.application.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,13 +21,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {

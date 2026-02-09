@@ -1,11 +1,8 @@
 package mate.academy.application.service;
 
-import mate.academy.application.dto.book.BookDto;
-import mate.academy.application.dto.book.CreateBookRequestDto;
 import mate.academy.application.dto.category.CategoryDto;
 import mate.academy.application.dto.category.CreateCategoryRequestDto;
 import mate.academy.application.mapper.CategoryMapper;
-import mate.academy.application.model.Book;
 import mate.academy.application.model.Category;
 import mate.academy.application.repository.category.CategoryRepository;
 import mate.academy.application.service.impl.CategoryServiceImpl;
@@ -19,11 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-
 import java.util.Arrays;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @ExtendWith(MockitoExtension.class)

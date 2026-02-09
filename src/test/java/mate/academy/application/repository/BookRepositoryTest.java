@@ -9,11 +9,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.math.BigDecimal;
 import java.util.Set;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)

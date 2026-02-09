@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import static mate.academy.application.helper.TestDataHelper.createBookDto;
+import static mate.academy.application.helper.TestDataHelper.createBookRequestDto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -41,7 +43,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BookControllerTest {
-
     protected static MockMvc mockMvc;
 
     @Autowired
@@ -74,33 +75,13 @@ public class BookControllerTest {
         }
     }
 
-    private BookDto createBookDto(Long id, String author, String title,
-                                  String isbn, BigDecimal price, String description,
-                                  String coverImage, Set<Long> categoryId) {
-        BookDto dto = new BookDto();
-        dto.setId(id);
-        dto.setAuthor(author);
-        dto.setTitle(title);
-        dto.setIsbn(isbn);
-        dto.setPrice(price);
-        dto.setDescription(description);
-        dto.setCoverImage(coverImage);
-        dto.setCategoryIds(categoryId);
-        return dto;
-    }
 
     @WithMockUser(username = "admin", roles = "ADMIN")
     @Test
     @DisplayName("Create a book")
     public void createBook() throws Exception {
-        CreateBookRequestDto createBookRequestDto = new CreateBookRequestDto();
-        createBookRequestDto.setAuthor("Taras");
-        createBookRequestDto.setTitle("Kobzar");
-        createBookRequestDto.setIsbn("1241214");
-        createBookRequestDto.setPrice(BigDecimal.valueOf(100));
-        createBookRequestDto.setDescription("book kobzar");
-        createBookRequestDto.setCoverImage("coverImage");
-        createBookRequestDto.setCategoryIds(Set.of(1L));
+        CreateBookRequestDto createBookRequestDto = createBookRequestDto("Taras", "Kobzar", "1241214",
+                BigDecimal.valueOf(100), "book kobzar", "coverImage", Set.of(1L));
 
         String jsonRequest = objectMapper.writeValueAsString(createBookRequestDto);
 
@@ -161,15 +142,8 @@ public class BookControllerTest {
     @Test
     @DisplayName("get book by id")
     public void getById_CorrectData_ShouldReturnOneBook() throws Exception {
-        BookDto expected = createBookDto(
-                1L,
-                "Taras",
-                "Kobzar",
-                "1331421",
-                BigDecimal.valueOf(100),
-                "book kobzar",
-                "coverImage",
-                Set.of(1L));
+        BookDto expected = createBookDto(1L, "Taras", "Kobzar", "1331421",
+                BigDecimal.valueOf(100), "book kobzar", "coverImage", Set.of(1L));
 
         MvcResult mvcResult = mockMvc.perform(
                         get("/books/{id}", 1L)
@@ -192,15 +166,8 @@ public class BookControllerTest {
     @Test
     @DisplayName("Search books by parameters")
     void searchBooks_ShouldReturnFilteredBooks() throws Exception {
-        BookDto expected = createBookDto(
-                1L,
-                "Taras",
-                "Kobzar",
-                "1331421",
-                BigDecimal.valueOf(100),
-                "book kobzar",
-                "coverImage",
-                Set.of(1L));
+        BookDto expected = createBookDto(1L, "Taras", "Kobzar", "1331421",
+                BigDecimal.valueOf(100), "book kobzar","coverImage", Set.of(1L));
 
         MvcResult mvcResult = mockMvc.perform(
                         get("/books/search")
@@ -237,14 +204,8 @@ public class BookControllerTest {
     @Test
     @DisplayName("update book by id")
     public void updateById_ShouldReturnUpdatedBook() throws Exception {
-        CreateBookRequestDto requestDto = new CreateBookRequestDto();
-        requestDto.setAuthor("Karas");
-        requestDto.setTitle("Nadzemni");
-        requestDto.setIsbn("5125123");
-        requestDto.setPrice(BigDecimal.valueOf(100));
-        requestDto.setDescription("book Nadzemni");
-        requestDto.setCoverImage("coverImage");
-        requestDto.setCategoryIds(Set.of(1L));
+        CreateBookRequestDto requestDto = createBookRequestDto("Karas", "Nadzemni", "5125123",
+                BigDecimal.valueOf(100), "book Nadzemni", "coverImage", Set.of(1L));
 
         String jsonRequest = objectMapper.writeValueAsString(requestDto);
 
