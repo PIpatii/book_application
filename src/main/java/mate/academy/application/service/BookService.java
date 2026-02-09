@@ -16,11 +16,11 @@ public interface BookService {
 
     List<BookDto> search(BookSearchParametersDto params);
 
-    BookDto getById(long id);
+    BookDto getById(Long id);
 
-    BookDto updateById(CreateBookRequestDto bookDto, long id);
+    BookDto updateById(CreateBookRequestDto bookDto, Long id);
 
-    Set<BookDtoWithoutCategoryIds> getBooksByCategoryId(long id);
+    Set<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long id);
 
-    void deleteById(long id);
+    void deleteById(Long id);
 }

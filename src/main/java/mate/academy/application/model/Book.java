@@ -49,7 +49,7 @@ public class Book {
     )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Category> category = new HashSet<>();
+    private Set<Category> categories = new HashSet<>();
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private boolean isDeleted = false;
 
