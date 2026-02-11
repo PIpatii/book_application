@@ -44,7 +44,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = shoppingCartRepository.getShoppingCartByUserId(getUserId());
 
         CartItem cartItem = cartItemsMapper.addCartRequestToModel(requestDto);
-        cartItem.setBook(bookRepository.findBooksById(requestDto.getBookId()));
+        cartItem.setBook(bookRepository.findBookById(requestDto.getBookId()));
         cartItem.setShoppingCart(shoppingCart);
         Set<CartItem> cartItems = shoppingCart.getCartItems();
 

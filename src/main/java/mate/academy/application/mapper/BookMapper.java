@@ -20,7 +20,7 @@ public interface BookMapper {
     @Mapping(target = "categoryIds", ignore = true)
     BookDto toDto(Book book);
 
-    @Mapping(target = "category", ignore = true)
+    @Mapping(target = "categories", ignore = true)
     Book toEntity(CreateBookRequestDto createBookRequestDto);
 
     BookDtoWithoutCategoryIds toDtoWithoutCategory(Book book);
@@ -36,7 +36,7 @@ public interface BookMapper {
 
     @AfterMapping
     default void setCategoryIds(@MappingTarget BookDto bookDto, Book book) {
-        Set<Long> categoryIdsSet = book.getCategory().stream()
+        Set<Long> categoryIdsSet = book.getCategories().stream()
                 .map(Category::getId)
                 .collect(Collectors.toSet());
 
@@ -49,6 +49,6 @@ public interface BookMapper {
                 .map(Category::new)
                 .collect(Collectors.toSet());
 
-        book.setCategory(categorySet);
+        book.setCategories(categorySet);
     }
 }

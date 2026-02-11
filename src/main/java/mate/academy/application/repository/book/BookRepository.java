@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificationExecutor<Book> {
-    Set<Book> findAllByCategoryId(Long categoryId);
+    Set<Book> findAllByCategories_Id(Long categoryId);
 
-    Book findBooksById(Long id);
+    Book findBookById(Long id);
 }
