@@ -29,7 +29,6 @@ public class ShoppingCartRepositoryTest {
     public void getShoppingCartByUserId() {
         User user = createUser(2L, "first_name",
                 "last_name", "email", "password");
-
         ShoppingCart excpectedShoppingCart = createShoppingCart(2L, user);
 
         ShoppingCart actual = shoppingCartRepository.getShoppingCartByUserId(2L);
