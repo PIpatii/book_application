@@ -18,6 +18,41 @@
 #          cache: maven
 #      - name: Build with Maven
 #        run: mvn --batch-mode --update-snapshots verify
+
+#name: Run Tests
+#
+#on:
+#  push:
+#  pull_request:
+#
+#jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#
+#    services:
+#      docker:
+#        image: docker:24.0.5-dind
+#        privileged: true
+#        options: --dns 8.8.8.8
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up JDK 21
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: 'temurin'
+#          java-version: '21'
+#
+#      - name: Enable Docker
+#        run: |
+#          sudo systemctl start docker
+#          docker info
+#          docker --version
+#
+#      - name: Run Maven tests
+#        run: mvn --batch-mode --update-snapshots verify
 name: Run Tests
 
 on:
