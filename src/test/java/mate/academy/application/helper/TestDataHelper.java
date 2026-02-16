@@ -2,6 +2,11 @@ package mate.academy.application.helper;
 
 import mate.academy.application.dto.book.BookDto;
 import mate.academy.application.dto.book.CreateBookRequestDto;
+import mate.academy.application.dto.cart.ShoppingCartDto;
+import mate.academy.application.model.CartItem;
+import mate.academy.application.model.ShoppingCart;
+import mate.academy.application.model.User;
+
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -29,6 +34,7 @@ public final class TestDataHelper {
         dto.setDescription(description);
         dto.setCoverImage(coverImage);
         dto.setCategoryIds(categoryIds);
+
         return dto;
     }
 
@@ -49,7 +55,43 @@ public final class TestDataHelper {
         requestDto.setDescription(description);
         requestDto.setCoverImage(coverImage);
         requestDto.setCategoryIds(categoryIds);
+
         return requestDto;
+    }
+
+    public static User createUser(Long id, String firstName, String lastName, String email, String password) {
+        User user = new User();
+        user.setId(id);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(password);
+
+        return user;
+    }
+
+    public static ShoppingCart createShoppingCart(Long Id, User user) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setId(Id);
+        shoppingCart.setUser(user);
+
+        return shoppingCart;
+    }
+
+    public static ShoppingCartDto createShoppingCartDto(Long Id, Long userId) {
+        ShoppingCartDto shoppingCartDto = new ShoppingCartDto();
+        shoppingCartDto.setId(Id);
+        shoppingCartDto.setUserId(userId);
+
+        return shoppingCartDto;
+    }
+
+    public static CartItem createCartItem(Long Id, ShoppingCart shoppingCart) {
+        CartItem cartItem = new CartItem();
+        cartItem.setId(Id);
+        cartItem.setShoppingCart(shoppingCart);
+
+        return cartItem;
     }
 
 
