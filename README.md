@@ -80,10 +80,8 @@ ADMIN — can perform CRUD on books and categories, update order statuses
 | /auth/login | POST | Authenticate and retrieve JWT |
 
     🗃 Database Model (Simplified)
-User ───┬────< ShoppingCart >────< CartItem >──── Book
-        │
-        └────< Order >────< OrderItem >──── Book
-        
+![Database Model](https://github.com/user-attachments/assets/7274cd05-f71b-41a0-9ee0-09fd721f1b2e)
+
     🧾 .env Example
 MYSQLDB_PASSWORD=yourpassword
 MYSQLDB_DATABASE=bookstore_db
@@ -126,7 +124,7 @@ Catches EntityNotFoundException and RegistrationException
 
     🎬 Demo Video
 You can watch a short demo of the Book Store API here:  
-👉https://drive.google.com/file/d/1DxoyRqynkpazOGvtAA1-nVjJm4p-vjVY/view?usp=sharing
+👉 https://youtu.be/T5uVvfL1RhE
 
 
 👤 Author
